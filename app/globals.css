@@ -1,12 +1,18 @@
-@import "tailwindcss";
+/* =====================================================
+   DESIGN TOKENS
+   ===================================================== */
 
 :root {
-  --max-width: 1200px;
+  --c-cta:       #16a34a;
+  --c-cta-h:     #15803d;
+  --c-cta-text:  #ffffff;
 }
 
-*,
-*::before,
-*::after {
+/* =====================================================
+   BASE RESET
+   ===================================================== */
+
+*, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -21,10 +27,36 @@ body {
   font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #ffffff;
+  color: #111827;
+  overflow-x: hidden;
 }
 
-img,
-video {
+section[id] {
+  scroll-margin-top: 3.5rem;
+}
+
+img, video {
   max-width: 100%;
   height: auto;
 }
+
+/* =====================================================
+   CTA BUTTON — green, used only for primary actions
+   ===================================================== */
+
+.btn-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--c-cta);
+  color: var(--c-cta-text);
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.15s ease, transform 0.1s ease;
+}
+.btn-cta:hover  { background-color: var(--c-cta-h); }
+.btn-cta:active { background-color: var(--c-cta-h); transform: scale(0.99); }

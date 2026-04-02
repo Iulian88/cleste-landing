@@ -1,0 +1,304 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--green:#2d5a27;--green-light:#4a8a3f;--green-pale:#f0f7ee;
+--gold:#c8952a;--gold-light:#e8b84b;
+--bg:#fafaf7;--text:#1a1a18;--muted:#6b7059;
+--radius:12px;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.6}
+
+.reviews-section{padding:3.5rem 1.5rem;max-width:960px;margin:0 auto}
+.section-header{text-align:center;margin-bottom:2.5rem}
+.section-title{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--green);margin-bottom:0.4rem}
+.section-sub{color:var(--muted);font-size:0.95rem}
+
+.rating-summary{display:flex;align-items:center;justify-content:center;gap:2.5rem;background:#fff;border:1px solid #e0e5d5;border-radius:16px;padding:1.5rem 2rem;margin-bottom:2.5rem;flex-wrap:wrap}
+.rating-big{text-align:center}
+.rating-number{font-family:'Playfair Display',serif;font-size:3.5rem;font-weight:700;color:var(--green);line-height:1}
+.rating-stars-big{color:var(--gold-light);font-size:1.3rem;margin:4px 0}
+.rating-count{font-size:12px;color:var(--muted)}
+.rating-bars{flex:1;min-width:200px;max-width:320px}
+.bar-row{display:flex;align-items:center;gap:10px;margin-bottom:6px;font-size:13px;color:var(--muted)}
+.bar-row span:first-child{min-width:32px;text-align:right}
+.bar-track{flex:1;height:7px;background:#e8e8e0;border-radius:4px;overflow:hidden}
+.bar-fill{height:100%;border-radius:4px;background:var(--gold-light);transition:width .6s ease}
+.bar-row span:last-child{min-width:24px;font-size:12px}
+
+.reviews-filter{display:flex;gap:8px;margin-bottom:1.5rem;flex-wrap:wrap}
+.filter-btn{padding:7px 16px;border-radius:20px;border:1px solid #d0d8c0;background:#fff;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--muted);cursor:pointer;transition:all .15s}
+.filter-btn.active,.filter-btn:hover{background:var(--green);color:#fff;border-color:var(--green)}
+
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.1rem;margin-bottom:1.5rem}
+.review-card{background:#fff;border:1px solid #e0e5d5;border-radius:16px;padding:1.25rem;transition:box-shadow .2s,transform .2s;position:relative}
+.review-card:hover{box-shadow:0 4px 20px rgba(45,90,39,0.1);transform:translateY(-2px)}
+.review-card.verified::after{content:'✓ Cumpărător verificat';position:absolute;top:12px;right:12px;font-size:10px;color:var(--green-light);font-weight:600;background:var(--green-pale);padding:2px 8px;border-radius:10px}
+.review-top{display:flex;align-items:center;gap:10px;margin-bottom:0.75rem}
+.review-avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:14px;flex-shrink:0}
+.review-meta{}
+.review-name{font-weight:600;font-size:14px;color:var(--text)}
+.review-loc{font-size:12px;color:var(--muted)}
+.review-stars{color:var(--gold-light);font-size:14px;margin-bottom:0.5rem;letter-spacing:1px}
+.review-title{font-weight:600;font-size:14px;color:var(--green);margin-bottom:0.35rem}
+.review-body{font-size:13.5px;color:var(--muted);line-height:1.65}
+.review-package{display:inline-block;margin-top:0.75rem;font-size:11px;font-weight:600;color:var(--gold);background:#fdf5e6;border:1px solid #f0d890;padding:3px 10px;border-radius:8px}
+.review-date{font-size:11px;color:#bbb;margin-top:8px}
+.review-helpful{display:flex;align-items:center;gap:8px;margin-top:10px;padding-top:10px;border-top:1px solid #f0f0e8}
+.helpful-label{font-size:12px;color:var(--muted)}
+.helpful-btn{background:none;border:1px solid #d8dccb;border-radius:6px;padding:3px 10px;font-size:12px;cursor:pointer;color:var(--muted);transition:all .15s;font-family:'DM Sans',sans-serif}
+.helpful-btn:hover{border-color:var(--green);color:var(--green)}
+.helpful-btn.liked{background:var(--green-pale);border-color:var(--green-light);color:var(--green)}
+
+.show-more-btn{display:block;margin:0 auto;padding:11px 32px;border:1.5px solid var(--green);background:#fff;color:var(--green);font-family:'DM Sans',sans-serif;font-weight:600;font-size:0.95rem;border-radius:10px;cursor:pointer;transition:all .15s}
+.show-more-btn:hover{background:var(--green);color:#fff}
+
+.write-review-bar{background:var(--green-pale);border:1px solid #c8d4b8;border-radius:var(--radius);padding:1.25rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-top:1.5rem;flex-wrap:wrap}
+.write-review-bar p{font-size:0.9rem;color:var(--muted);max-width:420px}
+.write-btn{padding:10px 22px;background:var(--green);color:#fff;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:0.9rem;cursor:pointer;white-space:nowrap;transition:background .15s}
+.write-btn:hover{background:var(--green-light)}
+
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:200;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal{background:#fff;border-radius:20px 20px 0 0;padding:2rem 1.5rem;width:100%;max-width:560px;transform:translateY(40px);transition:transform .3s cubic-bezier(.4,0,.2,1);max-height:90vh;overflow-y:auto}
+.modal-overlay.open .modal{transform:translateY(0)}
+.modal-title{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--green);margin-bottom:1.25rem}
+.modal-close{float:right;background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--muted);margin-top:-4px}
+.star-select{display:flex;gap:8px;margin-bottom:1.25rem}
+.star-select span{font-size:2rem;cursor:pointer;color:#ddd;transition:color .1s;user-select:none}
+.star-select span.active,.star-select span.hover{color:var(--gold-light)}
+.form-group{margin-bottom:1rem}
+.form-label{display:block;font-size:13px;font-weight:500;color:var(--text);margin-bottom:5px}
+.form-input,.form-textarea,.form-select{width:100%;border:1px solid #d0d8c0;border-radius:8px;padding:9px 12px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--text);background:#fff;outline:none;transition:border .15s}
+.form-input:focus,.form-textarea:focus,.form-select:focus{border-color:var(--green-light)}
+.form-textarea{resize:vertical;min-height:100px;line-height:1.6}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.submit-btn{width:100%;padding:13px;background:var(--green);color:#fff;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:1rem;cursor:pointer;margin-top:0.5rem;transition:background .15s}
+.submit-btn:hover{background:var(--green-light)}
+.success-msg{text-align:center;padding:2rem 0;display:none}
+.success-msg h3{font-family:'Playfair Display',serif;color:var(--green);font-size:1.3rem;margin-bottom:0.5rem}
+.success-msg p{color:var(--muted);font-size:0.9rem}
+</style>
+
+<div class="reviews-section">
+  <div class="section-header">
+    <div class="section-title">Ce spun clienții noștri</div>
+    <div class="section-sub">Recenzii reale de la fermieri și grădinari din toată România</div>
+  </div>
+
+  <div class="rating-summary">
+    <div class="rating-big">
+      <div class="rating-number">4.8</div>
+      <div class="rating-stars-big">★★★★★</div>
+      <div class="rating-count">din 127 recenzii</div>
+    </div>
+    <div class="rating-bars" id="bars"></div>
+  </div>
+
+  <div class="reviews-filter">
+    <button class="filter-btn active" onclick="filterReviews('all',this)">Toate (127)</button>
+    <button class="filter-btn" onclick="filterReviews('5',this)">★★★★★ (98)</button>
+    <button class="filter-btn" onclick="filterReviews('4',this)">★★★★ (21)</button>
+    <button class="filter-btn" onclick="filterReviews('bundle-popular',this)">Pachet Popular</button>
+    <button class="filter-btn" onclick="filterReviews('bundle-pro',this)">Pachet Pro</button>
+    <button class="filter-btn" onclick="filterReviews('bundle-starter',this)">Starter</button>
+  </div>
+
+  <div class="reviews-grid" id="reviews-grid"></div>
+  <button class="show-more-btn" id="show-more" onclick="showMore()">Arată mai multe recenzii</button>
+
+  <div class="write-review-bar">
+    <p>Ai cumpărat deja? Lasă o recenzie și ajută alți grădinari să aleagă corect.</p>
+    <button class="write-btn" onclick="openModal()">Scrie o recenzie</button>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-overlay" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-title">Scrie o recenzie</div>
+    <div id="form-content">
+      <div class="form-group">
+        <div class="form-label">Nota ta</div>
+        <div class="star-select" id="star-select">
+          <span onclick="setRating(1)">★</span>
+          <span onclick="setRating(2)">★</span>
+          <span onclick="setRating(3)">★</span>
+          <span onclick="setRating(4)">★</span>
+          <span onclick="setRating(5)">★</span>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Prenume</label>
+          <input class="form-input" id="r-name" placeholder="Ion" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Localitate</label>
+          <input class="form-input" id="r-loc" placeholder="Cluj-Napoca" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Pachet cumpărat</label>
+        <select class="form-select" id="r-package">
+          <option value="bundle-starter">Pachet Starter</option>
+          <option value="bundle-popular" selected>Pachet Popular</option>
+          <option value="bundle-pro">Pachet Pro</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Titlu recenzie</label>
+        <input class="form-input" id="r-title" placeholder="Ex: Excelent pentru viță de vie!" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Recenzia ta</label>
+        <textarea class="form-textarea" id="r-body" placeholder="Spune-ne cum te-a ajutat tapenierul..."></textarea>
+      </div>
+      <button class="submit-btn" onclick="submitReview()">Publică recenzia</button>
+    </div>
+    <div class="success-msg" id="success-msg">
+      <div style="font-size:2.5rem;margin-bottom:0.75rem">🌿</div>
+      <h3>Mulțumim pentru recenzie!</h3>
+      <p>Recenzia ta va fi verificată și publicată în curând.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+const avatarColors=[
+  {bg:'#e8f4e8',color:'#2d5a27'},{bg:'#fdf5e6',color:'#c8952a'},
+  {bg:'#e6f1fb',color:'#185fa5'},{bg:'#fbeaf0',color:'#993556'},
+  {bg:'#e1f5ee',color:'#0f6e56'},{bg:'#faeeda',color:'#854f0b'}
+];
+const allReviews=[
+  {name:'Gheorghe M.',loc:'Vrancea',stars:5,title:'Cel mai bun ajutor la vie!',body:'Am 2 hectare de viță de vie și legatul manual îmi lua 3 zile. Cu 3 tapenerele din pachetul Pro am terminat în mai puțin de o zi. Calitate foarte bună, nu s-a stricat nimic.',package:'bundle-pro',date:'15 martie 2025',helpful:24,verified:true},
+  {name:'Maria D.',loc:'Dolj',stars:5,title:'Perfect pentru roșii și castraveți',body:'Îl folosesc la solarul meu de legume. E rapid, nu taie tulpinile și banda ține toată vara. Recomand pachetul Popular — ai 2 clești și poți lucra cu cineva în paralel.',package:'bundle-popular',date:'2 aprilie 2025',helpful:18,verified:true},
+  {name:'Ion P.',loc:'Prahova',stars:5,title:'Calitate germană la preț bun',body:'Am mai avut un tapener ieftin de pe alte site-uri care s-a stricat după o lună. Acesta e solid, metalul e gros și capsele intră perfect. Mulțumit 100%.',package:'bundle-popular',date:'28 martie 2025',helpful:31,verified:true},
+  {name:'Florica N.',loc:'Iași',stars:4,title:'Bun, dar banda se termină repede',body:'Calitatea clestele e excelentă, nu am nicio problemă cu el. Singura observație — am un solar mai mare și rolele s-au terminat repede. Bine că pot comanda extra separat.',package:'bundle-starter',date:'10 aprilie 2025',helpful:9,verified:true},
+  {name:'Vasile C.',loc:'Mureș',stars:5,title:'Le-am luat pentru toată familia',body:'Am luat 3 bucăți, câte unul pentru mine, frate-meu și socrul meu. Lucrăm via împreună și suntem toți mulțumiți. Livrarea a venit în 4 zile.',package:'bundle-pro',date:'5 mai 2025',helpful:15,verified:true},
+  {name:'Elena B.',loc:'Bacău',stars:5,title:'Extraordinar pentru pensionari',body:'Am 68 de ani și legatul mă obosea enorm. Tapenierul e ușor, se ține confortabil și nu mai am dureri de mână. Fiică-mea mi l-a comandat și îi mulțumesc!',package:'bundle-starter',date:'20 aprilie 2025',helpful:42,verified:true},
+  {name:'Dumitru A.',loc:'Timiș',stars:4,title:'Livrat rapid, funcționează bine',body:'Am primit în 3 zile lucrătoare, ambalat îngrijit. Clestele funcționează perfect, am testat pe roșii. Dau 4 stele doar pentru că aș fi vrut instrucțiuni în română.',package:'bundle-popular',date:'1 mai 2025',helpful:7,verified:false},
+  {name:'Rodica M.',loc:'Cluj',stars:5,title:'Nu mai pot fără el!',body:'Soțul meu era sceptic dar după prima zi cu tapenierul a recunoscut că e o investiție excelentă. Am legat toată via în timp record. O să mai comandăm role de bandă.',package:'bundle-popular',date:'18 mai 2025',helpful:20,verified:true},
+  {name:'Nelu G.',loc:'Olt',stars:5,title:'Recomand tuturor agricultorilor',body:'Lucrez 5 hectare de legume. Cu 2 tapenerele din pachetul Popular economisesc cel puțin 2 ore pe zi în sezonul de legat. Se amortizează în prima săptămână de utilizare.',package:'bundle-popular',date:'12 mai 2025',helpful:33,verified:true},
+];
+const packageLabels={'bundle-starter':'Pachet Starter','bundle-popular':'Pachet Popular','bundle-pro':'Pachet Pro'};
+let currentFilter='all';
+let visibleCount=6;
+let liked={};
+let rating=0;
+
+function getInitials(n){return n.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2)}
+function starsHtml(n){return '★'.repeat(n)+'☆'.repeat(5-n)}
+function getColor(i){return avatarColors[i%avatarColors.length]}
+
+function filtered(){
+  if(currentFilter==='all')return allReviews;
+  if(currentFilter==='5')return allReviews.filter(r=>r.stars===5);
+  if(currentFilter==='4')return allReviews.filter(r=>r.stars===4);
+  return allReviews.filter(r=>r.package===currentFilter);
+}
+
+function renderReviews(){
+  const list=filtered();
+  const grid=document.getElementById('reviews-grid');
+  const shown=list.slice(0,visibleCount);
+  grid.innerHTML=shown.map((r,i)=>{
+    const c=getColor(i);
+    const likedKey=r.name+r.date;
+    const isLiked=liked[likedKey];
+    return `<div class="review-card ${r.verified?'verified':''}">
+      <div class="review-top">
+        <div class="review-avatar" style="background:${c.bg};color:${c.color}">${getInitials(r.name)}</div>
+        <div class="review-meta">
+          <div class="review-name">${r.name}</div>
+          <div class="review-loc">${r.loc}</div>
+        </div>
+      </div>
+      <div class="review-stars">${starsHtml(r.stars)}</div>
+      <div class="review-title">${r.title}</div>
+      <div class="review-body">${r.body}</div>
+      <div class="review-package">${packageLabels[r.package]||''}</div>
+      <div class="review-date">${r.date}</div>
+      <div class="review-helpful">
+        <span class="helpful-label">Util?</span>
+        <button class="helpful-btn ${isLiked?'liked':''}" onclick="toggleLike('${likedKey}',this)">
+          👍 ${(r.helpful||(0))+(isLiked?1:0)}
+        </button>
+      </div>
+    </div>`;
+  }).join('');
+  document.getElementById('show-more').style.display=list.length>visibleCount?'block':'none';
+}
+
+function toggleLike(key,btn){
+  liked[key]=!liked[key];
+  btn.classList.toggle('liked');
+  const base=parseInt(btn.textContent.replace(/\D/g,''))||0;
+  btn.textContent='👍 '+(liked[key]?base+1:base-1);
+}
+
+function filterReviews(f,btn){
+  currentFilter=f;visibleCount=6;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderReviews();
+}
+
+function showMore(){visibleCount+=3;renderReviews()}
+
+function renderBars(){
+  const bars=document.getElementById('bars');
+  const data=[
+    {label:'5 ★',pct:77},{label:'4 ★',pct:17},
+    {label:'3 ★',pct:4},{label:'2 ★',pct:1},{label:'1 ★',pct:1}
+  ];
+  bars.innerHTML=data.map(d=>`
+    <div class="bar-row">
+      <span>${d.label}</span>
+      <div class="bar-track"><div class="bar-fill" style="width:${d.pct}%"></div></div>
+      <span>${d.pct}%</span>
+    </div>
+  `).join('');
+}
+
+function openModal(){document.getElementById('modal-overlay').classList.add('open')}
+function closeModal(){
+  document.getElementById('modal-overlay').classList.remove('open');
+  setTimeout(()=>{
+    document.getElementById('success-msg').style.display='none';
+    document.getElementById('form-content').style.display='block';
+    rating=0;updateStars();
+  },300);
+}
+function closeModalOutside(e){if(e.target===document.getElementById('modal-overlay'))closeModal()}
+
+function setRating(n){
+  rating=n;
+  document.querySelectorAll('#star-select span').forEach((s,i)=>{
+    s.classList.toggle('active',i<n);
+  });
+}
+function updateStars(){
+  document.querySelectorAll('#star-select span').forEach(s=>s.classList.remove('active','hover'));
+}
+
+function submitReview(){
+  const name=document.getElementById('r-name').value.trim();
+  const loc=document.getElementById('r-loc').value.trim();
+  const title=document.getElementById('r-title').value.trim();
+  const body=document.getElementById('r-body').value.trim();
+  if(!rating||!name||!title||!body){
+    alert('Te rugăm completează toate câmpurile și selectează o notă.');return;
+  }
+  const pkg=document.getElementById('r-package').value;
+  const now=new Date();
+  const date=now.toLocaleDateString('ro-RO',{day:'numeric',month:'long',year:'numeric'});
+  allReviews.unshift({name:name+' (nou)',loc:loc||'România',stars:rating,title,body,package:pkg,date,helpful:0,verified:false});
+  document.getElementById('form-content').style.display='none';
+  document.getElementById('success-msg').style.display='block';
+  setTimeout(()=>{closeModal();renderReviews();},2200);
+}
+
+renderBars();renderReviews();
+</script>

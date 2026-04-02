@@ -1,0 +1,310 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--green:#2d5a27;--green-light:#4a8a3f;--green-pale:#f0f7ee;
+--gold:#c8952a;--gold-light:#e8b84b;
+--bg:#fafaf7;--text:#1a1a18;--muted:#6b7059;
+--radius:12px;--shadow:0 2px 24px rgba(0,0,0,0.08);
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.6}
+.hero{background:linear-gradient(135deg,#1e3a1a 0%,#2d5a27 60%,#3d7a32 100%);color:#fff;padding:3rem 1.5rem 4rem;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-60px;right:-60px;width:300px;height:300px;border-radius:50%;background:rgba(200,149,42,0.12)}
+.hero-badge{display:inline-block;background:var(--gold);color:#fff;font-size:12px;font-weight:600;letter-spacing:0.06em;padding:5px 14px;border-radius:20px;margin-bottom:1.2rem;text-transform:uppercase}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:900;line-height:1.15;margin-bottom:1rem;max-width:650px;margin-left:auto;margin-right:auto}
+.hero h1 span{color:var(--gold-light)}
+.hero p{font-size:1.05rem;opacity:0.88;max-width:480px;margin:0 auto 2rem}
+.hero-cta{display:inline-block;background:var(--gold);color:#fff;font-weight:600;font-size:1rem;padding:14px 32px;border-radius:var(--radius);cursor:pointer;border:none;transition:transform .15s,background .15s}
+.hero-cta:hover{background:var(--gold-light);transform:translateY(-2px)}
+.trust-bar{background:#fff;border-bottom:1px solid #e8e8e0;padding:0.85rem 1rem;display:flex;justify-content:center;gap:2rem;font-size:13px;color:var(--muted);flex-wrap:wrap}
+.trust-bar span{display:flex;align-items:center;gap:6px}
+.section{padding:3rem 1.5rem;max-width:960px;margin:0 auto}
+.section-title{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;text-align:center;margin-bottom:0.5rem;color:var(--green)}
+.section-sub{text-align:center;color:var(--muted);margin-bottom:2.5rem;font-size:0.95rem}
+.bundles{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem;margin-bottom:2rem}
+.bundle-card{background:#fff;border:1.5px solid #e0e5d5;border-radius:16px;padding:1.5rem;position:relative;transition:box-shadow .2s,transform .2s;cursor:pointer}
+.bundle-card:hover{box-shadow:var(--shadow);transform:translateY(-3px)}
+.bundle-card.featured{border:2.5px solid var(--green-light);box-shadow:0 4px 32px rgba(45,90,39,0.13)}
+.popular-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;font-size:11px;font-weight:600;padding:4px 16px;border-radius:20px;white-space:nowrap;letter-spacing:0.04em}
+.bundle-name{font-weight:600;font-size:1rem;color:var(--green);margin-bottom:0.25rem}
+.bundle-price{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--text);margin:0.5rem 0 0.25rem}
+.bundle-price sup{font-size:1rem;font-family:'DM Sans',sans-serif;font-weight:500;vertical-align:top;margin-top:10px;display:inline-block}
+.bundle-old{font-size:0.85rem;color:var(--muted);text-decoration:line-through;margin-bottom:0.75rem}
+.bundle-items{list-style:none;margin-bottom:1.25rem}
+.bundle-items li{font-size:13.5px;color:var(--muted);padding:3px 0;display:flex;align-items:center;gap:8px}
+.bundle-items li::before{content:'';display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green-light);flex-shrink:0}
+.add-btn{width:100%;padding:11px;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:0.95rem;cursor:pointer;transition:background .15s,transform .1s}
+.add-btn:active{transform:scale(0.98)}
+.add-btn.primary{background:var(--green);color:#fff}
+.add-btn.primary:hover{background:var(--green-light)}
+.add-btn.secondary{background:var(--green-pale);color:var(--green)}
+.add-btn.secondary:hover{background:#d8ecd4}
+.extras-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}
+.extra-card{background:#fff;border:1px solid #e0e5d5;border-radius:var(--radius);padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.extra-info{}
+.extra-name{font-weight:500;font-size:0.95rem}
+.extra-price{font-size:0.85rem;color:var(--green-light);font-weight:600;margin-top:2px}
+.qty-control{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.qty-btn{width:30px;height:30px;border:1px solid #c8d4b8;background:var(--green-pale);border-radius:8px;cursor:pointer;font-size:1.1rem;font-weight:500;color:var(--green);display:flex;align-items:center;justify-content:center;transition:background .1s}
+.qty-btn:hover{background:#c8e0c0}
+.qty-num{font-weight:600;min-width:20px;text-align:center;font-size:0.95rem}
+.transport-bar{background:var(--green-pale);border:1px solid #c8d4b8;border-radius:var(--radius);padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-top:1.5rem}
+.transport-bar .t-label{font-size:0.9rem;color:var(--muted)}
+.transport-bar .t-value{font-weight:600;color:var(--green)}
+.cart-panel{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:2px solid var(--green-light);box-shadow:0 -4px 24px rgba(0,0,0,0.12);z-index:100;transform:translateY(100%);transition:transform .3s cubic-bezier(.4,0,.2,1)}
+.cart-panel.open{transform:translateY(0)}
+.cart-header{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.5rem;border-bottom:1px solid #e8e8e0}
+.cart-header h3{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--green)}
+.cart-close{background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--muted);line-height:1}
+.cart-items{padding:1rem 1.5rem;max-height:40vh;overflow-y:auto}
+.cart-item{display:flex;align-items:center;justify-content:space-between;padding:0.6rem 0;border-bottom:1px solid #f0f0e8;font-size:14px}
+.cart-item-name{font-weight:500;flex:1}
+.cart-item-price{font-weight:600;color:var(--green);margin-left:12px}
+.cart-item-remove{background:none;border:none;color:#ccc;cursor:pointer;font-size:1.1rem;margin-left:8px;transition:color .1s}
+.cart-item-remove:hover{color:#e24b4a}
+.cart-footer{padding:1rem 1.5rem}
+.cart-total-row{display:flex;justify-content:space-between;margin-bottom:0.5rem;font-size:14px}
+.cart-total-row.main{font-size:1.1rem;font-weight:600;border-top:1px solid #e0e5d5;padding-top:0.6rem;margin-top:0.4rem}
+.cart-checkout{width:100%;margin-top:1rem;padding:14px;background:var(--green);color:#fff;border:none;border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-weight:600;font-size:1rem;cursor:pointer;transition:background .15s}
+.cart-checkout:hover{background:var(--green-light)}
+.cart-empty{text-align:center;color:var(--muted);padding:2rem 0;font-size:0.9rem}
+.fab{position:fixed;bottom:24px;right:24px;background:var(--green);color:#fff;border:none;border-radius:50px;padding:12px 22px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:0.95rem;cursor:pointer;box-shadow:0 4px 20px rgba(45,90,39,0.35);z-index:99;display:flex;align-items:center;gap:10px;transition:background .15s,transform .1s}
+.fab:hover{background:var(--green-light);transform:translateY(-2px)}
+.fab-badge{background:var(--gold);color:#fff;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;min-width:20px}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.35);z-index:99;display:none}
+.overlay.show{display:block}
+.notify{position:fixed;top:16px;right:16px;background:var(--green);color:#fff;padding:10px 18px;border-radius:10px;font-size:13px;font-weight:500;z-index:200;opacity:0;transform:translateY(-10px);transition:all .25s;pointer-events:none}
+.notify.show{opacity:1;transform:translateY(0)}
+</style>
+
+<div class="notify" id="notify">Adăugat în coș!</div>
+<div class="overlay" id="overlay" onclick="closeCart()"></div>
+
+<div class="hero">
+  <div class="hero-badge">Livrat în România — Transport rapid</div>
+  <h1>Leagă vita de vie <span>de 10× mai repede</span> cu Tapenerul profesional</h1>
+  <p>Uitat de durerile de spate și ore pierdute. Tapenierul electric leagă rapid roșii, castraveți, viță de vie și orice plantă agățătoare.</p>
+  <button class="hero-cta" onclick="scrollBundles()">Alege pachetul tău</button>
+</div>
+
+<div class="trust-bar">
+  <span>✓ Livrare 3-5 zile</span>
+  <span>✓ Garanție 12 luni</span>
+  <span>✓ +500 clienți mulțumiți</span>
+  <span>✓ Ramburs la livrare</span>
+</div>
+
+<div class="section" id="bundles-section">
+  <div class="section-title">Alege pachetul potrivit</div>
+  <div class="section-sub">Cu cât cumperi mai mult, cu atât economisești mai mult</div>
+  <div class="bundles">
+
+    <div class="bundle-card" onclick="addBundle(0)">
+      <div class="bundle-name">Starter</div>
+      <div class="bundle-price"><sup>lei</sup>149</div>
+      <div class="bundle-old">lei 179</div>
+      <ul class="bundle-items">
+        <li>1 clește tapener</li>
+        <li>5 role bandă de legat</li>
+        <li>1 set capse legat</li>
+      </ul>
+      <button class="add-btn secondary">Adaugă în coș</button>
+    </div>
+
+    <div class="bundle-card featured" onclick="addBundle(1)">
+      <div class="popular-badge">⭐ Cel mai popular</div>
+      <div class="bundle-name">Popular</div>
+      <div class="bundle-price"><sup>lei</sup>249</div>
+      <div class="bundle-old">lei 320</div>
+      <ul class="bundle-items">
+        <li>2 clești tapener</li>
+        <li>10 role bandă de legat</li>
+        <li>1 set capse legat</li>
+      </ul>
+      <button class="add-btn primary">Adaugă în coș</button>
+    </div>
+
+    <div class="bundle-card" onclick="addBundle(2)">
+      <div class="bundle-name">Pro — Cel mai bun preț</div>
+      <div class="bundle-price"><sup>lei</sup>349</div>
+      <div class="bundle-old">lei 479</div>
+      <ul class="bundle-items">
+        <li>3 clești tapener</li>
+        <li>20 role bandă de legat</li>
+        <li>3 seturi capse legat</li>
+      </ul>
+      <button class="add-btn secondary">Adaugă în coș</button>
+    </div>
+
+  </div>
+</div>
+
+<div class="section" style="padding-top:0">
+  <div class="section-title" style="font-size:1.4rem;margin-bottom:0.4rem">Consumabile extra</div>
+  <div class="section-sub">Adaugă separat oricând</div>
+  <div class="extras-grid">
+    <div class="extra-card">
+      <div class="extra-info">
+        <div class="extra-name">Role bandă de legat (5 buc)</div>
+        <div class="extra-price">+39 lei</div>
+      </div>
+      <div class="qty-control">
+        <button class="qty-btn" onclick="changeQty('banda',-1)">−</button>
+        <span class="qty-num" id="qty-banda">0</span>
+        <button class="qty-btn" onclick="changeQty('banda',1)">+</button>
+      </div>
+    </div>
+    <div class="extra-card">
+      <div class="extra-info">
+        <div class="extra-name">Set capse legat (1 set)</div>
+        <div class="extra-price">+29 lei</div>
+      </div>
+      <div class="qty-control">
+        <button class="qty-btn" onclick="changeQty('capse',-1)">−</button>
+        <span class="qty-num" id="qty-capse">0</span>
+        <button class="qty-btn" onclick="changeQty('capse',1)">+</button>
+      </div>
+    </div>
+  </div>
+  <div class="transport-bar">
+    <div>
+      <div class="t-label">Transport standard (3-5 zile)</div>
+      <div class="t-value">20 lei</div>
+    </div>
+    <div>
+      <div class="t-label">Transport gratuit la comenzi</div>
+      <div class="t-value">peste 300 lei</div>
+    </div>
+    <div>
+      <div class="t-label">Plată la livrare</div>
+      <div class="t-value">disponibilă</div>
+    </div>
+  </div>
+</div>
+
+<div style="height:100px"></div>
+
+<button class="fab" id="fab" onclick="openCart()">
+  <span>Coș</span>
+  <span class="fab-badge" id="fab-count">0</span>
+</button>
+
+<div class="cart-panel" id="cart-panel">
+  <div class="cart-header">
+    <h3>Coșul tău</h3>
+    <button class="cart-close" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cart-items">
+    <div class="cart-empty">Coșul este gol</div>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-total-row"><span>Produse</span><span id="subtotal">0 lei</span></div>
+    <div class="cart-total-row"><span>Transport</span><span id="transport-cost">20 lei</span></div>
+    <div class="cart-total-row main"><span>Total</span><span id="total">0 lei</span></div>
+    <button class="cart-checkout">Finalizează comanda →</button>
+  </div>
+</div>
+
+<script>
+const bundles=[
+  {name:'Pachet Starter',price:149},
+  {name:'Pachet Popular',price:249},
+  {name:'Pachet Pro',price:349}
+];
+const extras={
+  banda:{name:'Role bandă (5 buc)',price:39,qty:0},
+  capse:{name:'Set capse',price:29,qty:0}
+};
+let cart=[];
+let cartOpen=false;
+
+function scrollBundles(){document.getElementById('bundles-section').scrollIntoView({behavior:'smooth',block:'start'})}
+
+function addBundle(idx){
+  cart.push({...bundles[idx],id:Date.now()});
+  updateCart();showNotify();
+}
+
+function changeQty(key,delta){
+  extras[key].qty=Math.max(0,extras[key].qty+delta);
+  document.getElementById('qty-'+key).textContent=extras[key].qty;
+  syncExtras();updateCart();
+}
+
+function syncExtras(){
+  Object.keys(extras).forEach(k=>{
+    cart=cart.filter(i=>!i.extraKey||i.extraKey!==k);
+    if(extras[k].qty>0){
+      for(let i=0;i<extras[k].qty;i++){
+        cart.push({name:extras[k].name,price:extras[k].price,id:Date.now()+Math.random(),extraKey:k});
+      }
+    }
+  });
+}
+
+function removeItem(id){
+  cart=cart.filter(i=>i.id!==id);
+  resyncExtras();updateCart();
+}
+
+function resyncExtras(){
+  Object.keys(extras).forEach(k=>{
+    extras[k].qty=cart.filter(i=>i.extraKey===k).length;
+    document.getElementById('qty-'+k).textContent=extras[k].qty;
+  });
+}
+
+function updateCart(){
+  const count=cart.length;
+  document.getElementById('fab-count').textContent=count;
+  const subtotal=cart.reduce((s,i)=>s+i.price,0);
+  const transport=subtotal>=300?0:20;
+  const total=subtotal+transport;
+  document.getElementById('subtotal').textContent=subtotal+' lei';
+  document.getElementById('transport-cost').textContent=transport===0?'Gratuit':transport+' lei';
+  document.getElementById('total').textContent=total+' lei';
+  const el=document.getElementById('cart-items');
+  if(cart.length===0){el.innerHTML='<div class="cart-empty">Coșul este gol</div>';return;}
+  const seen={};
+  const grouped=[];
+  cart.forEach(item=>{
+    const key=item.name;
+    if(seen[key]){seen[key].count++;seen[key].total+=item.price;}
+    else{seen[key]={...item,count:1,total:item.price};grouped.push(seen[key]);}
+  });
+  el.innerHTML=grouped.map(item=>`
+    <div class="cart-item">
+      <span class="cart-item-name">${item.name}${item.count>1?' ×'+item.count:''}</span>
+      <span class="cart-item-price">${item.total} lei</span>
+      <button class="cart-item-remove" onclick="removeOne('${item.name}')">×</button>
+    </div>
+  `).join('');
+}
+
+function removeOne(name){
+  const idx=cart.findLastIndex?cart.findLastIndex(i=>i.name===name):cart.map(i=>i.name).lastIndexOf(name);
+  if(idx>-1)cart.splice(idx,1);
+  resyncExtras();updateCart();
+}
+
+function openCart(){
+  cartOpen=true;
+  document.getElementById('cart-panel').classList.add('open');
+  document.getElementById('overlay').classList.add('show');
+}
+function closeCart(){
+  cartOpen=false;
+  document.getElementById('cart-panel').classList.remove('open');
+  document.getElementById('overlay').classList.remove('show');
+}
+
+function showNotify(){
+  const n=document.getElementById('notify');
+  n.classList.add('show');
+  setTimeout(()=>n.classList.remove('show'),1800);
+  if(!cartOpen)openCart();
+}
+
+updateCart();
+</script>
