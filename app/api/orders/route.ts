@@ -9,7 +9,15 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
   }
 
-  const { name, phone, address } = body as Record<string, string>;
+  const { name, phone, address, items, subtotal, transport, total } = body as {
+    name: string;
+    phone: string;
+    address: string;
+    items: { name: string; price: number; qty: number }[];
+    subtotal: number;
+    transport: number;
+    total: number;
+  };
 
   if (!name?.trim() || !phone?.trim() || !address?.trim()) {
     return NextResponse.json(
@@ -18,12 +26,19 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  if (!Array.isArray(items) || items.length === 0 || typeof total !== "number") {
+    return NextResponse.json(
+      { error: "Comanda nu conține produse valide." },
+      { status: 400 }
+    );
+  }
+
   const { error } = await getSupabase().from("orders").insert({
     name: name.trim(),
     phone: phone.trim(),
     address: address.trim(),
-    product: "Cleste",
-    price: 99,
+    product: JSON.stringify(items),
+    price: total,
   });
 
   if (error) {

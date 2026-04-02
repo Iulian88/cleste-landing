@@ -588,6 +588,21 @@ export default function ClesteLegat() {
     setOrderLoading(true);
     setOrderError("");
     try {
+      // Group flat cart items by name, adding qty
+      const groupedItems = Object.values(
+        cart.reduce<Record<string, { name: string; price: number; qty: number }>>(
+          (acc, item) => {
+            if (acc[item.name]) {
+              acc[item.name].qty += 1;
+            } else {
+              acc[item.name] = { name: item.name, price: item.price, qty: 1 };
+            }
+            return acc;
+          },
+          {}
+        )
+      );
+
       const res = await fetch("/api/orders", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -595,6 +610,10 @@ export default function ClesteLegat() {
           name: orderName,
           phone: orderPhone,
           address: orderAddress,
+          items: groupedItems,
+          subtotal,
+          transport,
+          total,
         }),
       });
       const data = await res.json();
