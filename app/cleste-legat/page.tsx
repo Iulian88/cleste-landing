@@ -2,6 +2,7 @@
 "use client";
 
 import { useState, useRef } from "react";
+import { useRouter } from "next/navigation";
 
 const SHIPPING_COST = 25;
 const FREE_SHIPPING_THRESHOLD = 300;
@@ -513,6 +514,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
 .consumable-info{display:flex;flex-direction:column;gap:2px}
 .consumable-name{font-size:13px;font-weight:500;color:var(--text)}
 .consumable-price{font-size:12px;color:var(--green-light);font-weight:600}
+.checkout-form{display:flex;flex-direction:column}
+.checkout-back{font-size:13px;color:var(--green-light);cursor:pointer;margin-bottom:1rem;display:inline-block}
+.checkout-back:hover{text-decoration:underline}
+.checkout-note{text-align:center;font-size:11px;color:var(--muted);margin-top:8px}
+.order-error{background:#fff0f0;color:#b00020;border:1px solid #f5c0c0;border-radius:8px;padding:8px 12px;font-size:13px;margin-bottom:8px}
+.cart-checkout:disabled{opacity:0.6;cursor:not-allowed}
 
 `;
 
@@ -542,7 +549,15 @@ export default function ClesteLegat() {
 
   const [allReviews, setAllReviews] = useState<Review[]>(INITIAL_REVIEWS);
 
+  // Checkout state
+  const [checkoutOpen, setCheckoutOpen] = useState(false);
+  const [orderName, setOrderName] = useState("");
+  const [orderPhone, setOrderPhone] = useState("");
+  const [orderAddress, setOrderAddress] = useState("");
+  const [orderLoading, setOrderLoading] = useState(false);
+  const [orderError, setOrderError] = useState("");
 
+  const router = useRouter();
 
   const nameRef = useRef<HTMLInputElement>(null);
 
@@ -564,7 +579,36 @@ export default function ClesteLegat() {
 
   const total = subtotal + transport;
 
-
+  async function handleOrderSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!orderName.trim() || !orderPhone.trim() || !orderAddress.trim()) {
+      setOrderError("Completează toate câmpurile.");
+      return;
+    }
+    setOrderLoading(true);
+    setOrderError("");
+    try {
+      const res = await fetch("/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: orderName,
+          phone: orderPhone,
+          address: orderAddress,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setOrderError(data.error || "Eroare. Încearcă din nou.");
+        setOrderLoading(false);
+        return;
+      }
+      router.push("/confirmare");
+    } catch {
+      setOrderError("Eroare de rețea. Încearcă din nou.");
+      setOrderLoading(false);
+    }
+  }
 
   const groupedCart = (() => {
 
@@ -1350,24 +1394,92 @@ export default function ClesteLegat() {
 
         <div className="cart-footer">
 
-          <div className="cart-total-row"><span>Produse</span><span>{subtotal} lei</span></div>
+          {!checkoutOpen ? (
+            <>
+              <div className="cart-total-row"><span>Produse</span><span>{subtotal} lei</span></div>
 
-          <div className="cart-total-row"><span>Transport</span><span>{transport === 0 ? "Gratuit" : transport + " lei"}</span></div>
+              <div className="cart-total-row"><span>Transport</span><span>{transport === 0 ? "Gratuit" : transport + " lei"}</span></div>
 
-          {cart.length > 0 && (
-            subtotal >= FREE_SHIPPING_THRESHOLD
-              ? <div className="shipping-nudge unlocked">Ai economisit {SHIPPING_COST} lei — transport gratuit</div>
-              : <>
-                  <div className="shipping-nudge pending">Mai adaugă {FREE_SHIPPING_THRESHOLD - subtotal} lei pentru transport gratuit</div>
-                  {FREE_SHIPPING_THRESHOLD - subtotal <= 50 && (
-                    <div className="aov-hint">Adaugă o rolă de bandă și beneficiezi de transport gratuit</div>
-                  )}
-                </>
+              {cart.length > 0 && (
+                subtotal >= FREE_SHIPPING_THRESHOLD
+                  ? <div className="shipping-nudge unlocked">Ai economisit {SHIPPING_COST} lei — transport gratuit</div>
+                  : <>
+                      <div className="shipping-nudge pending">Mai adaugă {FREE_SHIPPING_THRESHOLD - subtotal} lei pentru transport gratuit</div>
+                      {FREE_SHIPPING_THRESHOLD - subtotal <= 50 && (
+                        <div className="aov-hint">Adaugă o rolă de bandă și beneficiezi de transport gratuit</div>
+                      )}
+                    </>
+              )}
+
+              <div className="cart-total-row main"><span>Total</span><span>{total} lei</span></div>
+
+              <button
+                className="cart-checkout"
+                onClick={() => setCheckoutOpen(true)}
+                disabled={cart.length === 0}
+              >
+                Finalizează comanda →
+              </button>
+            </>
+          ) : (
+            <form onSubmit={handleOrderSubmit} className="checkout-form">
+              <div className="checkout-back" onClick={() => { setCheckoutOpen(false); setOrderError(""); }}>← Înapoi la coș</div>
+              <div className="cart-total-row main" style={{ marginBottom: "1rem" }}><span>Total</span><span>{total} lei</span></div>
+
+              <div className="form-group">
+                <label className="form-label" htmlFor="order-name">Nume și prenume</label>
+                <input
+                  id="order-name"
+                  className="form-input"
+                  type="text"
+                  placeholder="Ion Popescu"
+                  value={orderName}
+                  onChange={(e) => setOrderName(e.target.value)}
+                  autoComplete="name"
+                  required
+                />
+              </div>
+
+              <div className="form-group">
+                <label className="form-label" htmlFor="order-phone">Telefon</label>
+                <input
+                  id="order-phone"
+                  className="form-input"
+                  type="tel"
+                  placeholder="07xx xxx xxx"
+                  value={orderPhone}
+                  onChange={(e) => setOrderPhone(e.target.value)}
+                  autoComplete="tel"
+                  required
+                />
+              </div>
+
+              <div className="form-group">
+                <label className="form-label" htmlFor="order-address">Adresă livrare</label>
+                <textarea
+                  id="order-address"
+                  className="form-textarea"
+                  placeholder="Strada, număr, oraș, județ"
+                  value={orderAddress}
+                  onChange={(e) => setOrderAddress(e.target.value)}
+                  rows={3}
+                  required
+                />
+              </div>
+
+              {orderError && <div className="order-error">{orderError}</div>}
+
+              <button
+                type="submit"
+                className="cart-checkout"
+                disabled={orderLoading}
+              >
+                {orderLoading ? "Se trimite..." : "Trimite comanda →"}
+              </button>
+
+              <div className="checkout-note">Plată la livrare · Livrare 3-5 zile</div>
+            </form>
           )}
-
-          <div className="cart-total-row main"><span>Total</span><span>{total} lei</span></div>
-
-          <button className="cart-checkout">Finalizează comanda →</button>
 
         </div>
 
