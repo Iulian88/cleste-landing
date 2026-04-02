@@ -9,13 +9,11 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
   }
 
-  const { name, phone, address, items, subtotal, transport, total } = body as {
+  const { name, phone, address, items, total } = body as {
     name: string;
     phone: string;
     address: string;
     items: { name: string; price: number; qty: number }[];
-    subtotal: number;
-    transport: number;
     total: number;
   };
 
