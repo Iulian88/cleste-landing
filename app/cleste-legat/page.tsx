@@ -514,6 +514,20 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
 .consumable-info{display:flex;flex-direction:column;gap:2px}
 .consumable-name{font-size:13px;font-weight:500;color:var(--text)}
 .consumable-price{font-size:12px;color:var(--green-light);font-weight:600}
+.video-section{padding:2rem 1.25rem;max-width:600px;margin:0 auto;text-align:center}
+.video-label{font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:0.5rem}
+.video-title{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--green);margin-bottom:1.25rem}
+.video-wrapper{position:relative;padding-bottom:56.25%;border-radius:16px;overflow:hidden;box-shadow:0 8px 32px rgba(45,90,39,0.15)}
+.video-wrapper iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.video-caption{font-size:13px;color:var(--muted);margin-top:0.75rem;font-style:italic}
+.video-cta{margin-top:1rem;background:var(--green);color:#fff;padding:12px 18px;border-radius:10px;font-weight:600;border:none;font-family:'DM Sans',sans-serif;font-size:0.9rem;cursor:pointer;transition:background .15s}
+.video-cta:hover{background:var(--green-light)}
+.whatsapp-fab{position:fixed;bottom:24px;left:24px;width:52px;height:52px;background:#25D366;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(37,211,102,0.4);z-index:99;transition:transform .15s,box-shadow .15s;text-decoration:none}
+.whatsapp-fab:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(37,211,102,0.5)}
+@media(max-width:480px){.whatsapp-fab{width:48px;height:48px;bottom:20px;left:16px}}
+.faq-whatsapp{margin-top:1.25rem;font-size:13.5px;color:var(--muted);text-align:center}
+.faq-whatsapp a{color:var(--green-light);font-weight:600;text-decoration:none}
+.faq-whatsapp a:hover{text-decoration:underline}
 .checkout-form{display:flex;flex-direction:column}
 .checkout-back{font-size:13px;color:var(--green-light);cursor:pointer;margin-bottom:1rem;display:inline-block}
 .checkout-back:hover{text-decoration:underline}
@@ -825,11 +839,11 @@ export default function ClesteLegat() {
 
   const FILTERS = [
 
-    { f: "all", label: "Toate (127)" },
+    { f: "all", label: "Toate" },
 
-    { f: "5", label: "★★★★★ (98)" },
+    { f: "5", label: "★★★★★" },
 
-    { f: "4", label: "★★★★ (21)" },
+    { f: "4", label: "★★★★" },
 
     { f: "bundle-popular", label: "Pachet Popular" },
 
@@ -897,7 +911,38 @@ export default function ClesteLegat() {
 
       </div>
 
+      <div style={{textAlign:"center",fontSize:"13px",color:"var(--muted)",padding:"0.6rem 1rem",background:"var(--green-pale)",borderBottom:"1px solid #d8e8d0"}}>
+        ✔️ Fixare rapidă în 2–3 secunde / plantă • Utilizare pe mai multe sezoane
+      </div>
 
+      <div className="video-section">
+        <div className="video-label">Demonstrație reală</div>
+
+        <h2 className="video-title">
+          Vezi cât de rapid și ușor legi plantele
+        </h2>
+
+        <div className="video-wrapper">
+          <iframe
+            src="https://www.youtube.com/embed/8bv3UpILviU?rel=0&modestbranding=1"
+            title="Cleste legat plante demonstrație"
+            loading="lazy"
+            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        </div>
+
+        <p className="video-caption">
+          O singură apăsare — fixare rapidă, fără să rănești planta
+        </p>
+
+        <button
+          className="video-cta"
+          onClick={() => document.getElementById("bundles-section")?.scrollIntoView({ behavior: "smooth" })}
+        >
+          Vezi ofertele disponibile ↓
+        </button>
+      </div>
 
       <div className="section" id="bundles-section">
 
@@ -1121,6 +1166,10 @@ export default function ClesteLegat() {
 
         </div>
 
+        <div className="faq-whatsapp">
+          Altă întrebare? <a href="https://wa.me/40749397079?text=Salut%21%20Sunt%20interesat%20de%20cle%C8%99tele%20de%20legat%20plante.%20M%C4%83%20po%C8%9Bi%20ajuta%20cu%20mai%20multe%20detalii%3F" target="_blank" rel="noopener noreferrer">Scrie-ne pe WhatsApp →</a>
+        </div>
+
       </div>
 
 
@@ -1136,16 +1185,6 @@ export default function ClesteLegat() {
         </div>
 
         <div className="rating-summary">
-
-          <div className="rating-big">
-
-            <div className="rating-number">4.8</div>
-
-            <div className="rating-stars-big">★★★★★</div>
-
-            <div className="rating-count">din 127 recenzii</div>
-
-          </div>
 
           <div className="rating-bars">
 
@@ -1364,6 +1403,18 @@ export default function ClesteLegat() {
       <div style={{ height: 100 }} />
 
 
+
+      <a
+        className="whatsapp-fab"
+        href="https://wa.me/40749397079?text=Salut%21%20Sunt%20interesat%20de%20cle%C8%99tele%20de%20legat%20plante.%20M%C4%83%20po%C8%9Bi%20ajuta%20cu%20mai%20multe%20detalii%3F"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Contactează-ne pe WhatsApp"
+      >
+        <svg width="26" height="26" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
+          <path d="M16 0C7.163 0 0 7.163 0 16c0 2.822.737 5.469 2.027 7.77L0 32l8.43-2.007A15.93 15.93 0 0016 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm8.27 22.27c-.344.967-1.71 1.768-2.81 2-.754.155-1.737.28-5.05-1.085-4.243-1.726-6.98-6.043-7.19-6.325-.2-.28-1.67-2.22-1.67-4.23s1.06-2.99 1.43-3.4c.371-.41.81-.51 1.08-.51.27 0 .541.003.778.014.25.012.585-.095.916.698.344.82 1.17 2.83 1.27 3.035.1.196.167.427.033.688-.136.26-.203.42-.405.647-.2.227-.422.507-.602.68-.2.192-.41.4-.176.784.234.383 1.04 1.716 2.233 2.78 1.534 1.368 2.826 1.79 3.21 1.99.384.197.607.164.83-.1.22-.26.945-1.1 1.197-1.48.25-.38.5-.317.84-.19.34.127 2.16 1.02 2.53 1.205.37.184.614.277.705.43.09.154.09.894-.254 1.86z"/>
+        </svg>
+      </a>
 
       <button className="fab" onClick={() => setCartOpen(true)}>
 
