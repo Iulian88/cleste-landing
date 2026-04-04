@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 const SHIPPING_COST = 25;
@@ -539,6 +539,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
 
 
 
+function firePixel(...args: unknown[]) {
+  if (typeof window !== "undefined" && typeof (window as unknown as { fbq?: unknown }).fbq === "function") {
+    (window as unknown as { fbq: (...a: unknown[]) => void }).fbq(...args);
+  }
+}
+
 export default function ClesteLegat() {
 
   const [cart, setCart] = useState<CartItem[]>([]);
@@ -572,6 +578,16 @@ export default function ClesteLegat() {
   const [orderError, setOrderError] = useState("");
 
   const router = useRouter();
+
+  useEffect(() => {
+    firePixel("track", "ViewContent", {
+      content_name: "Cleste legat plante",
+      content_category: "Agricultura",
+      currency: "RON",
+      value: 279,
+    });
+    console.log("FB: ViewContent");
+  }, []);
 
   const nameRef = useRef<HTMLInputElement>(null);
 
@@ -636,6 +652,23 @@ export default function ClesteLegat() {
         setOrderLoading(false);
         return;
       }
+      const purchaseContents = Object.values(
+        cart.reduce<Record<string, { id: string; quantity: number }>>(
+          (acc, item) => {
+            if (acc[item.name]) acc[item.name].quantity += 1;
+            else acc[item.name] = { id: item.name, quantity: 1 };
+            return acc;
+          },
+          {}
+        )
+      );
+      firePixel("track", "Purchase", {
+        value: total,
+        currency: "RON",
+        contents: purchaseContents,
+        content_type: "product",
+      });
+      console.log("FB: Purchase", total, purchaseContents);
       router.push("/confirmare");
     } catch {
       setOrderError("Eroare de rețea. Încearcă din nou.");
@@ -693,6 +726,23 @@ export default function ClesteLegat() {
 
     setCartOpen(true);
 
+    firePixel("track", "AddToCart", {
+      content_name: BUNDLES[idx].name,
+      value: BUNDLES[idx].price,
+      currency: "RON",
+    });
+    console.log("FB: AddToCart", BUNDLES[idx].name, BUNDLES[idx].price);
+
+  }
+
+  function openCheckout() {
+    setCheckoutOpen(true);
+    firePixel("track", "InitiateCheckout", {
+      value: total,
+      currency: "RON",
+      num_items: cart.length,
+    });
+    console.log("FB: InitiateCheckout", total);
   }
 
 
@@ -1485,7 +1535,7 @@ export default function ClesteLegat() {
 
               <button
                 className="cart-checkout"
-                onClick={() => setCheckoutOpen(true)}
+                onClick={openCheckout}
                 disabled={cart.length === 0}
               >
                 Finalizează comanda →
