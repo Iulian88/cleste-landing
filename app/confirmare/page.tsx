@@ -1,4 +1,37 @@
+"use client";
+
+import { useEffect } from "react";
+
+function firePixel(...args: unknown[]) {
+  if (typeof window === "undefined") return;
+  const tryFire = (retries = 0) => {
+    if (typeof (window as unknown as { fbq?: unknown }).fbq === "function") {
+      (window as unknown as { fbq: (...a: unknown[]) => void }).fbq(...args);
+    } else if (retries < 20) {
+      setTimeout(() => tryFire(retries + 1), 100);
+    }
+  };
+  tryFire();
+}
+
 export default function Confirmare() {
+  useEffect(() => {
+    const raw = sessionStorage.getItem("fbPurchase");
+    if (raw) {
+      try {
+        const data = JSON.parse(raw) as { value: number; currency: string; contents: unknown[] };
+        firePixel("track", "Purchase", {
+          value: data.value,
+          currency: data.currency,
+          contents: data.contents,
+          content_type: "product",
+        });
+        console.log("FB: Purchase", data.value, data.contents);
+      } catch {}
+      sessionStorage.removeItem("fbPurchase");
+    }
+  }, []);
+
   return (
     <main
       style={{

@@ -542,11 +542,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
 function firePixel(...args: unknown[]) {
   if (typeof window === "undefined") return;
 
-  const tryFire = () => {
+  const tryFire = (retries = 0) => {
     if (typeof (window as unknown as { fbq?: unknown }).fbq === "function") {
       (window as unknown as { fbq: (...a: unknown[]) => void }).fbq(...args);
-    } else {
-      setTimeout(tryFire, 100);
+    } else if (retries < 20) {
+      setTimeout(() => tryFire(retries + 1), 100);
     }
   };
 
@@ -670,13 +670,10 @@ export default function ClesteLegat() {
           {}
         )
       );
-      firePixel("track", "Purchase", {
-        value: total,
-        currency: "RON",
-        contents: purchaseContents,
-        content_type: "product",
-      });
-      console.log("FB: Purchase", total, purchaseContents);
+      sessionStorage.setItem(
+        "fbPurchase",
+        JSON.stringify({ value: total, currency: "RON", contents: purchaseContents })
+      );
       router.push("/confirmare");
     } catch {
       setOrderError("Eroare de rețea. Încearcă din nou.");
