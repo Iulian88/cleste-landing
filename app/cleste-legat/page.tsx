@@ -540,9 +540,17 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
 
 
 function firePixel(...args: unknown[]) {
-  if (typeof window !== "undefined" && typeof (window as unknown as { fbq?: unknown }).fbq === "function") {
-    (window as unknown as { fbq: (...a: unknown[]) => void }).fbq(...args);
-  }
+  if (typeof window === "undefined") return;
+
+  const tryFire = () => {
+    if (typeof (window as unknown as { fbq?: unknown }).fbq === "function") {
+      (window as unknown as { fbq: (...a: unknown[]) => void }).fbq(...args);
+    } else {
+      setTimeout(tryFire, 100);
+    }
+  };
+
+  tryFire();
 }
 
 export default function ClesteLegat() {
