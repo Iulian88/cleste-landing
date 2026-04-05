@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Background dark green rounded square -->
+  <rect width="512" height="512" rx="96" fill="#1B5E20"/>
+
+  <!-- Main stem -->
+  <rect x="232" y="120" width="48" height="320" rx="24" fill="white"/>
+
+  <!-- Left leaf upper -->
+  <ellipse cx="152" cy="210" rx="110" ry="36" fill="white" transform="rotate(-40 152 210)"/>
+
+  <!-- Right leaf upper -->
+  <ellipse cx="360" cy="210" rx="110" ry="36" fill="white" transform="rotate(40 360 210)"/>
+
+  <!-- Left leaf lower -->
+  <ellipse cx="168" cy="310" rx="90" ry="30" fill="white" transform="rotate(-30 168 310)"/>
+
+  <!-- Right leaf lower -->
+  <ellipse cx="344" cy="310" rx="90" ry="30" fill="white" transform="rotate(30 344 310)"/>
+
+  <!-- Soil mound at base -->
+  <ellipse cx="256" cy="430" rx="120" ry="36" fill="white"/>
+</svg>
