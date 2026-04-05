@@ -1049,7 +1049,7 @@ export default function ClesteLegat() {
 
             <div className="bundle-pct">-{Math.round((1 - BUNDLES[0].price / BUNDLES[0].oldPrice) * 100)}%</div>
 
-            <div className="bundle-context">Grădina casei — ~2.000 de legare</div>
+            <div className="bundle-context">Grădina casei — ~2.000 de legări</div>
 
             <ul className="bundle-items">
 
