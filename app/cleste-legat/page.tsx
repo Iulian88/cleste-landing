@@ -1215,6 +1215,20 @@ export default function ClesteLegat() {
           }}
         />
 
+        <img
+          src="/images/banda-capse.jpg.webp"
+          alt="Banda si capse incluse in pachet"
+          style={{
+            display: "block",
+            width: "260px",
+            maxWidth: "85%",
+            height: "auto",
+            objectFit: "contain",
+            borderRadius: "12px",
+            margin: "20px auto 0",
+          }}
+        />
+
       </div>
 
 
