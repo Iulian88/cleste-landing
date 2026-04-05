@@ -722,6 +722,7 @@ export default function ClesteLegat() {
 
 
   function addBundle(idx: number) {
+    console.log("AddToCart fired", idx);
 
     setCart((prev) => [...prev, { ...BUNDLES[idx], id: Date.now() }]);
 
@@ -929,6 +930,7 @@ export default function ClesteLegat() {
         <img
           src="/images/tapener-hero.jpeg"
           alt="Clește profesional pentru legat plante — în acțiune pe viță de vie"
+          fetchPriority="high"
           style={{
             display: "block",
             width: "90%",
@@ -947,6 +949,14 @@ export default function ClesteLegat() {
         <p>Via, roşiile, zmeură — orice rând care înainte îți lua ore se face acum în minute. O singură apăsare: banda şi capsa intră perfect, tulpina nu se răneşte.</p>
 
         <button className="hero-cta" onClick={scrollBundles}>Alege pachetul tău</button>
+
+        <button
+          className="hero-cta"
+          style={{ marginTop: "10px", background: "var(--green)", display: "block", width: "100%", maxWidth: "340px", margin: "10px auto 0" }}
+          onClick={() => { addBundle(1); scrollBundles(); }}
+        >
+          Comandă acum — Pachet Popular
+        </button>
 
         <div className="hero-guarantee">Retur 30 zile — fără risc</div>
 
@@ -1007,7 +1017,7 @@ export default function ClesteLegat() {
 
         <div className="bundles">
 
-          <div className="bundle-card" onClick={() => addBundle(0)}>
+          <div className="bundle-card">
 
             <div className="bundle-name">Starter</div>
 
@@ -1031,11 +1041,11 @@ export default function ClesteLegat() {
 
             </ul>
 
-            <button className="add-btn secondary">Adaugă în coş</button>
+            <button type="button" className="add-btn secondary" onClick={() => addBundle(0)}>Adaugă în coş</button>
 
           </div>
 
-          <div className="bundle-card featured" onClick={() => addBundle(1)}>
+          <div className="bundle-card featured">
 
             <div className="popular-badge">Cel mai ales</div>
 
@@ -1061,13 +1071,13 @@ export default function ClesteLegat() {
 
             </ul>
 
-            <button className="add-btn primary">Alege pachetul Popular</button>
+            <button type="button" className="add-btn primary" onClick={() => addBundle(1)}>Alege pachetul Popular</button>
 
             <div className="urgency-text">Stoc limitat — cerere ridicată</div>
 
           </div>
 
-          <div className="bundle-card" onClick={() => addBundle(2)}>
+          <div className="bundle-card">
 
             <div className="bundle-name">Pro — Cel mai bun preț</div>
 
@@ -1091,7 +1101,7 @@ export default function ClesteLegat() {
 
             </ul>
 
-            <button className="add-btn secondary">Adaugă în coş</button>
+            <button type="button" className="add-btn secondary" onClick={() => addBundle(2)}>Adaugă în coş</button>
 
           </div>
 
