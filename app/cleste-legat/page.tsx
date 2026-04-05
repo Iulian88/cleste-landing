@@ -597,6 +597,26 @@ export default function ClesteLegat() {
     console.log("FB: ViewContent");
   }, []);
 
+  useEffect(() => {
+    const fired = new Set<string>();
+    function onScroll() {
+      const pct = (window.scrollY + window.innerHeight) / document.body.scrollHeight;
+      if (pct >= 0.5 && !fired.has("50")) {
+        fired.add("50");
+        firePixel("trackCustom", "ScrollDepth50");
+        console.log("FB: ScrollDepth50");
+      }
+      if (pct >= 0.75 && !fired.has("75")) {
+        fired.add("75");
+        firePixel("trackCustom", "ScrollDepth75");
+        console.log("FB: ScrollDepth75");
+        window.removeEventListener("scroll", onScroll);
+      }
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   const nameRef = useRef<HTMLInputElement>(null);
 
   const locRef = useRef<HTMLInputElement>(null);
@@ -955,7 +975,7 @@ export default function ClesteLegat() {
           style={{ marginTop: "10px", background: "var(--green)", display: "block", width: "100%", maxWidth: "340px", margin: "10px auto 0" }}
           onClick={() => { addBundle(1); scrollBundles(); }}
         >
-          Comandă acum — Pachet Popular
+          Adaugă în coș — 279 lei
         </button>
 
         <div className="hero-guarantee">Retur 30 zile — fără risc</div>
@@ -1211,7 +1231,7 @@ export default function ClesteLegat() {
 
           <div className="faq-q">Ce bandă de legat este compatibilă?</div>
 
-          <div className="faq-a">Funcționează cu role standard de bandă, disponibile în orice magazin agricol. Benzile incluse în pachet sunt suficiente pentru început — poți recomanda oricând.</div>
+          <div className="faq-a">Funcționează cu role standard de bandă, disponibile în orice magazin agricol. Benzile incluse în pachet sunt suficiente pentru început — poți comanda oricând.</div>
 
         </div>
 
