@@ -1033,7 +1033,7 @@ export default function ClesteLegat() {
 
         <div className="section-title">Alege pachetul potrivit</div>
 
-        <div className="section-sub">Cu cât cumperi mai mult, cu atât economiseşti mai mult</div>
+        <div className="section-sub">Alege după suprafață — sau ia Pachetul Popular, cel mai ales de clienți</div>
 
         <div className="bundles">
 
@@ -1049,7 +1049,7 @@ export default function ClesteLegat() {
 
             <div className="bundle-pct">-{Math.round((1 - BUNDLES[0].price / BUNDLES[0].oldPrice) * 100)}%</div>
 
-            <div className="bundle-context">Pentru grădina de acasă</div>
+            <div className="bundle-context">Grădina casei — ~2.000 de legare</div>
 
             <ul className="bundle-items">
 
@@ -1079,7 +1079,11 @@ export default function ClesteLegat() {
 
             <div className="bundle-pct">-{Math.round((1 - BUNDLES[1].price / BUNDLES[1].oldPrice) * 100)}%</div>
 
-            <div className="bundle-context">Pentru utilizare regulată</div>
+            <div className="bundle-context">Cel mai ales — ajunge pentru un sezon complet</div>
+
+            <div style={{fontSize:"12px",color:"var(--green)",fontWeight:600,textAlign:"center",marginBottom:"4px"}}>139 lei / cleşte — economiseşti 30 lei față de Starter</div>
+
+            <div style={{fontSize:"12px",color:"var(--muted)",textAlign:"center",marginBottom:"8px"}}>Cel mai bun raport preț / cantitate</div>
 
             <ul className="bundle-items">
 
@@ -1087,19 +1091,19 @@ export default function ClesteLegat() {
 
               <li style={{display:"flex",alignItems:"center"}}><img className="bundle-item-img" src="/images/tape.webp" alt="Rolă bandă de legat" /><span>10 role bandă de legat</span></li>
 
-              <li style={{display:"flex",alignItems:"center"}}><img className="bundle-item-img" src="/images/staples.webp" alt="Capse legat" /><span>1 set capse legat</span></li>
+              <li style={{display:"flex",alignItems:"center"}}><img className="bundle-item-img" src="/images/staples.webp" alt="Capse legat" /><span>2 seturi capse legat</span></li>
 
             </ul>
 
-            <button type="button" className="add-btn primary" onClick={() => addBundle(1)}>Alege pachetul Popular</button>
+            <button type="button" className="add-btn primary" onClick={() => addBundle(1)}>Alege pachetul recomandat</button>
 
-            <div className="urgency-text">Stoc limitat — cerere ridicată</div>
+            <div className="urgency-text">73% din clienți aleg acest pachet</div>
 
           </div>
 
           <div className="bundle-card">
 
-            <div className="bundle-name">Pro — Cel mai bun preț</div>
+            <div className="bundle-name">Pro</div>
 
             <div className="bundle-price"><sup>lei</sup>{BUNDLES[2].price}</div>
 
@@ -1109,7 +1113,7 @@ export default function ClesteLegat() {
 
             <div className="bundle-pct">-{Math.round((1 - BUNDLES[2].price / BUNDLES[2].oldPrice) * 100)}%</div>
 
-            <div className="bundle-context">Pentru suprafețe mari</div>
+            <div className="bundle-context">Solar sau vie — suficient pentru 2–3 ani</div>
 
             <ul className="bundle-items">
 
@@ -1117,7 +1121,7 @@ export default function ClesteLegat() {
 
               <li style={{display:"flex",alignItems:"center"}}><img className="bundle-item-img" src="/images/tape.webp" alt="Rolă bandă de legat" /><span>20 role bandă de legat</span></li>
 
-              <li style={{display:"flex",alignItems:"center"}}><img className="bundle-item-img" src="/images/staples.webp" alt="Capse legat" /><span>3 seturi capse legat</span></li>
+              <li style={{display:"flex",alignItems:"center"}}><img className="bundle-item-img" src="/images/staples.webp" alt="Capse legat" /><span>4 seturi capse legat</span></li>
 
             </ul>
 
