@@ -1053,7 +1053,7 @@ export default function ClesteLegat() {
 
             <ul className="bundle-items">
 
-              <li>1 cleste profesional de legat</li>
+              <li style={{display:"flex",alignItems:"center"}}><img className="bundle-item-img" src="/images/tapener-mechanism.jpeg" alt="Clește de legat" /><span>1 clește profesional de legat</span></li>
 
               <li style={{display:"flex",alignItems:"center"}}><img className="bundle-item-img" src="/images/tape.webp" alt="Rolă bandă de legat" /><span>5 role bandă de legat</span></li>
 
@@ -1087,7 +1087,7 @@ export default function ClesteLegat() {
 
             <ul className="bundle-items">
 
-              <li>2 clești de legat</li>
+              <li style={{display:"flex",alignItems:"center"}}><img className="bundle-item-img" src="/images/tapener-mechanism.jpeg" alt="Clește de legat" /><span>2 clești de legat</span></li>
 
               <li style={{display:"flex",alignItems:"center"}}><img className="bundle-item-img" src="/images/tape.webp" alt="Rolă bandă de legat" /><span>10 role bandă de legat</span></li>
 
@@ -1117,7 +1117,7 @@ export default function ClesteLegat() {
 
             <ul className="bundle-items">
 
-              <li>3 clești de legat</li>
+              <li style={{display:"flex",alignItems:"center"}}><img className="bundle-item-img" src="/images/tapener-mechanism.jpeg" alt="Clește de legat" /><span>3 clești de legat</span></li>
 
               <li style={{display:"flex",alignItems:"center"}}><img className="bundle-item-img" src="/images/tape.webp" alt="Rolă bandă de legat" /><span>20 role bandă de legat</span></li>
 
