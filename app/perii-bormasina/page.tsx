@@ -434,7 +434,7 @@ export default function PeriiBormasina() {
       );
       sessionStorage.setItem(
         "fbPurchase",
-        JSON.stringify({ value: total, currency: "RON", contents: purchaseContents })
+        JSON.stringify({ product: "Perii rotative bormașină", value: total, currency: "RON", contents: purchaseContents })
       );
       router.push("/confirmare");
     } catch {
@@ -453,7 +453,8 @@ export default function PeriiBormasina() {
     setTimeout(() => setNotifyShow(false), 1800);
     setCartOpen(true);
     firePixel("track", "AddToCart", {
-      content_name: BUNDLES[idx].name,
+      content_name: "perii-bormasina — " + BUNDLES[idx].name,
+      content_ids: ["perii-bormasina"],
       value: BUNDLES[idx].price,
       currency: "RON",
     });

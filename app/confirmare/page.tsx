@@ -19,8 +19,9 @@ export default function Confirmare() {
     const raw = sessionStorage.getItem("fbPurchase");
     if (raw) {
       try {
-        const data = JSON.parse(raw) as { value: number; currency: string; contents: unknown[] };
+        const data = JSON.parse(raw) as { product?: string; value: number; currency: string; contents: unknown[] };
         firePixel("track", "Purchase", {
+          content_name: data.product ?? "esellroyal",
           value: data.value,
           currency: data.currency,
           contents: data.contents,

@@ -693,7 +693,7 @@ export default function ClesteLegat() {
       );
       sessionStorage.setItem(
         "fbPurchase",
-        JSON.stringify({ value: total, currency: "RON", contents: purchaseContents })
+        JSON.stringify({ product: "Cleste legat plante", value: total, currency: "RON", contents: purchaseContents })
       );
       router.push("/confirmare");
     } catch {
@@ -754,7 +754,8 @@ export default function ClesteLegat() {
     setCartOpen(true);
 
     firePixel("track", "AddToCart", {
-      content_name: BUNDLES[idx].name,
+      content_name: "cleste-legat — " + BUNDLES[idx].name,
+      content_ids: ["cleste-legat"],
       value: BUNDLES[idx].price,
       currency: "RON",
     });
