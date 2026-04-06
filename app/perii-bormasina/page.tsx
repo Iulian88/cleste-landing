@@ -40,8 +40,9 @@ interface Review {
 }
 
 const BUNDLES = [
-  { name: "Set Standard", price: 79, oldPrice: 99 },
-  { name: "Set Dublu", price: 129, oldPrice: 179 },
+  { name: "BASIC", price: 79, oldPrice: 109 },
+  { name: "PRO", price: 129, oldPrice: 179 },
+  { name: "ULTRA", price: 149, oldPrice: 209 },
 ];
 
 const AVATAR_COLORS = [
@@ -54,8 +55,9 @@ const AVATAR_COLORS = [
 ];
 
 const PACKAGE_LABELS: Record<string, string> = {
-  "set-standard": "Set Standard",
-  "set-dublu": "Set Dublu",
+  "basic": "BASIC — 3 perii",
+  "pro": "PRO — 4 perii",
+  "ultra": "ULTRA — 5 perii",
 };
 
 const INITIAL_REVIEWS: Review[] = [
@@ -63,43 +65,43 @@ const INITIAL_REVIEWS: Review[] = [
     name: "Alina M.", loc: "Cluj", stars: 5,
     title: "Am curățat baia în 10 minute!",
     body: "Rosturile de la gresie erau negre de ani de zile. Am încercat tot — nimic nu mergea. Cu peria asta + bormașina am terminat toată baia în 10 minute. Uimitor.",
-    package: "set-dublu", date: "10 februarie 2025", helpful: 38, verified: true,
+    package: "pro", date: "10 februarie 2025", helpful: 38, verified: true,
   },
   {
     name: "Mihai T.", loc: "București", stars: 5,
     title: "Perfecte pentru mașină",
     body: "Le folosesc la curățat jantele și tapițeria mașinii. Intră în orice colț, scot murdăria adânc înfundată. Recomand setul dublu — ai o perie pentru fiecare suprafață.",
-    package: "set-dublu", date: "3 martie 2025", helpful: 22, verified: true,
+    package: "pro", date: "3 martie 2025", helpful: 22, verified: true,
   },
   {
     name: "Irina P.", loc: "Timișoara", stars: 5,
     title: "Cel mai bun ajutor la curățenie generală",
     body: "Îmi fac curățenie generală de două ori pe an și până acum era chin. Acum merg prin toată casa cu bormașina și periile astea — în câteva ore totul e imaculat.",
-    package: "set-standard", date: "18 ianuarie 2025", helpful: 14, verified: true,
+    package: "basic", date: "18 ianuarie 2025", helpful: 14, verified: true,
   },
   {
     name: "Dan V.", loc: "Brașov", stars: 4,
     title: "Funcționează excelent, livrare rapidă",
     body: "Calitate bună, firele nu cad și suportul e rezistent. Am spart o perie anterioară ieftină în 5 minute. Astea au rezistat deja la 3 luni de utilizare intensă.",
-    package: "set-standard", date: "25 martie 2025", helpful: 9, verified: true,
+    package: "basic", date: "25 martie 2025", helpful: 9, verified: true,
   },
   {
     name: "Carmen B.", loc: "Iași", stars: 5,
     title: "Nu mai pot fără ele!",
     body: "Căzile de gresie și faianța din baie arătau îngrozitor. Acum le curăț în 15 minute odată pe săptămână. Soțul meu zice că am făcut investiția anului.",
-    package: "set-dublu", date: "5 aprilie 2025", helpful: 47, verified: true,
+    package: "ultra", date: "5 aprilie 2025", helpful: 47, verified: true,
   },
   {
     name: "Radu A.", loc: "Sibiu", stars: 5,
     title: "Compatibil cu orice bormașină",
     body: "Am testat pe 3 bormașini diferite la mine acasă — merge perfect la toate. Prinderea e solidă, nu vibrează deloc. Mulțumesc pentru livrarea rapidă.",
-    package: "set-standard", date: "12 aprilie 2025", helpful: 17, verified: false,
+    package: "basic", date: "12 aprilie 2025", helpful: 17, verified: false,
   },
   {
     name: "Mirela G.", loc: "Constanța", stars: 5,
     title: "Gresia din bucătărie arată ca nouă",
     body: "Nu mai reușeam să scot grăsimea din rosturile de la bucătărie. O singură trecere cu peria rotativă și au ieșit impecabile. Merită fiecare leu.",
-    package: "set-dublu", date: "20 mai 2025", helpful: 29, verified: true,
+    package: "pro", date: "20 mai 2025", helpful: 29, verified: true,
   },
 ];
 
@@ -273,6 +275,14 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
 .shipping-nudge{font-size:12px;margin-top:6px;padding:5px 8px;border-radius:6px}
 .shipping-nudge.pending{color:#b05a00;background:#fff8ee}
 .shipping-nudge.unlocked{color:var(--green);background:var(--green-pale);font-weight:600}
+.bundle-img{width:100%;height:140px;object-fit:cover;border-radius:10px;margin-bottom:1rem;background:#f5f5f0}
+.bundle-tier{font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.bundle-card.ultra{border:2px solid var(--gold);box-shadow:0 6px 36px rgba(200,149,42,0.15);background:#fffdf5}
+.bundle-card.ultra .popular-badge{background:linear-gradient(90deg,var(--gold),#d4a030)}
+.bundle-card.ultra .bundle-name{color:#9a6e10}
+.bundle-card.ultra .bundle-items li::before{background:var(--gold)}
+.bundle-card.ultra .add-btn.primary{background:linear-gradient(90deg,var(--gold),#d4a030)}
+.bundle-card.ultra .add-btn.primary:hover{filter:brightness(1.1)}
 @media(max-width:600px){.trust-bar{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;padding:0.7rem 1rem;font-size:11px}}
 @media(max-width:480px){.whatsapp-fab{width:48px;height:48px;bottom:20px;left:16px}.gallery-main{max-height:280px}}
 `;
@@ -483,7 +493,7 @@ export default function PeriiBormasina() {
       alert("Te rugăm completează toate câmpurile și selectează o notă.");
       return;
     }
-    const pkg = packageRef.current?.value ?? "set-dublu";
+    const pkg = packageRef.current?.value ?? "pro";
     const date = new Date().toLocaleDateString("ro-RO", { day: "numeric", month: "long", year: "numeric" });
     setAllReviews((prev) => [
       { name: name + " (nou)", loc: loc || "România", stars: rating, title, body, package: pkg, date, helpful: 0, verified: false },
@@ -510,8 +520,9 @@ export default function PeriiBormasina() {
     { f: "all", label: "Toate" },
     { f: "5", label: "★★★★★" },
     { f: "4", label: "★★★★" },
-    { f: "set-dublu", label: "Set Dublu" },
-    { f: "set-standard", label: "Set Standard" },
+    { f: "pro", label: "PRO" },
+    { f: "ultra", label: "ULTRA" },
+    { f: "basic", label: "BASIC" },
   ];
 
   return (
@@ -550,7 +561,7 @@ export default function PeriiBormasina() {
           style={{ marginTop: "10px", background: "var(--green)", display: "block", width: "100%", maxWidth: "340px", margin: "10px auto 0" }}
           onClick={() => { addBundle(1); scrollBundles(); }}
         >
-          Comandă acum — 129 lei
+          Comandă PRO — 129 lei
         </button>
 
         <div className="hero-guarantee">Retur 30 zile — fără risc</div>
@@ -564,7 +575,7 @@ export default function PeriiBormasina() {
         <span>✓ Garanție 12 luni</span>
       </div>
       <div style={{ textAlign: "center", fontSize: "13px", color: "var(--muted)", padding: "0.6rem 1rem", background: "var(--green-pale)", borderBottom: "1px solid #d8e8d0" }}>
-        ✔️ Compatibil cu orice bormașină • 4 tipuri de perii incluse în set
+        ✔️ Compatibil cu orice bormașină • Perii pentru orice suprafață
       </div>
 
       {/* PROBLEM SECTION */}
@@ -685,41 +696,63 @@ export default function PeriiBormasina() {
         <div className="section-sub">Plată la livrare — fără risc</div>
 
         <div className="bundles">
-          {/* Set Standard */}
+          {/* BASIC */}
           <div className="bundle-card">
+            <img className="bundle-img" src={IMG.img0} alt="BASIC — 3 perii" />
+            <div className="bundle-tier">pentru test</div>
             <div className="bundle-name">{BUNDLES[0].name}</div>
             <div className="bundle-price"><sup>lei</sup>{BUNDLES[0].price}</div>
             <div className="bundle-old">lei {BUNDLES[0].oldPrice}</div>
             <div className="bundle-savings">Economisești {BUNDLES[0].oldPrice - BUNDLES[0].price} lei</div>
             <div className="bundle-pct">-{Math.round((1 - BUNDLES[0].price / BUNDLES[0].oldPrice) * 100)}%</div>
-            <div className="bundle-context">1 set complet — ideal pentru testare</div>
             <ul className="bundle-items">
-              <li>4 perii rotative (4 dimensiuni)</li>
-              <li>Tijă extensie universală 6,35 mm</li>
+              <li>3 perii rotative</li>
+              <li>Tijă extensie 6,35 mm</li>
               <li>Compatibil orice bormașină</li>
+              <li>Ideal pentru o cameră</li>
             </ul>
-            <button type="button" className="add-btn secondary" onClick={() => addBundle(0)}>Adaugă în coș</button>
+            <button type="button" className="add-btn secondary" onClick={() => addBundle(0)}>Încearcă acum</button>
           </div>
 
-          {/* Set Dublu */}
+          {/* PRO — FEATURED */}
           <div className="bundle-card featured">
-            <div className="popular-badge">Cel mai ales</div>
+            <div className="popular-badge">🔥 CEL MAI VÂNDUT</div>
+            <img className="bundle-img" src={IMG.main} alt="PRO — 4 perii" />
             <div className="bundle-name">{BUNDLES[1].name}</div>
             <div className="bundle-price"><sup>lei</sup>{BUNDLES[1].price}</div>
             <div className="bundle-old">lei {BUNDLES[1].oldPrice}</div>
             <div className="bundle-savings">Economisești {BUNDLES[1].oldPrice - BUNDLES[1].price} lei</div>
             <div className="bundle-pct">-{Math.round((1 - BUNDLES[1].price / BUNDLES[1].oldPrice) * 100)}%</div>
-            <div className="bundle-context">2 seturi — unul pentru baie, unul pentru bucătărie</div>
-            <div style={{ fontSize: "12px", color: "var(--green)", fontWeight: 600, textAlign: "center", marginBottom: "4px" }}>
-              64,5 lei / set — economisești 50 lei față de Standard × 2
-            </div>
+            <div className="bundle-context">Ales de 72% din clienți — baie + bucătărie</div>
             <ul className="bundle-items">
-              <li>8 perii rotative (2× 4 dimensiuni)</li>
-              <li>2× Tijă extensie universală</li>
+              <li>4 perii rotative (set complet)</li>
+              <li>Tijă extensie premium 6,35 mm</li>
+              <li>Compatibil orice bormașină</li>
               <li>Transport gratuit inclus</li>
             </ul>
-            <button type="button" className="add-btn primary" onClick={() => addBundle(1)}>Comandă acum</button>
-            <div className="urgency-text">68% din clienți aleg setul dublu</div>
+            <button type="button" className="add-btn primary" onClick={() => addBundle(1)}>Comandă PRO acum</button>
+            <div className="urgency-text">⚡ Transport gratuit inclus</div>
+          </div>
+
+          {/* ULTRA */}
+          <div className="bundle-card ultra">
+            <div className="popular-badge">🔝 KIT COMPLET</div>
+            <img className="bundle-img" src={IMG.dimensions} alt="ULTRA — 5 perii" />
+            <div className="bundle-name">{BUNDLES[2].name}</div>
+            <div className="bundle-price"><sup>lei</sup>{BUNDLES[2].price}</div>
+            <div className="bundle-old">lei {BUNDLES[2].oldPrice}</div>
+            <div className="bundle-savings">Economisești {BUNDLES[2].oldPrice - BUNDLES[2].price} lei</div>
+            <div className="bundle-pct">-{Math.round((1 - BUNDLES[2].price / BUNDLES[2].oldPrice) * 100)}%</div>
+            <div className="bundle-context">Casă + mașină + terasă — toate suprafețele</div>
+            <ul className="bundle-items">
+              <li>5 perii rotative (toate dimensiunile)</li>
+              <li>2× Tijă extensie universală</li>
+              <li>Compatibil orice bormașină</li>
+              <li>Transport gratuit + livrare prioritară</li>
+              <li>Garanție extinsă 18 luni</li>
+            </ul>
+            <button type="button" className="add-btn primary" onClick={() => addBundle(2)}>Comandă kit complet</button>
+            <div className="urgency-text" style={{ color: "var(--green)" }}>🔝 Cel mai complet set disponibil</div>
           </div>
         </div>
 
@@ -999,9 +1032,10 @@ export default function PeriiBormasina() {
               </div>
               <div className="form-group">
                 <label className="form-label">Set cumpărat</label>
-                <select className="form-select" ref={packageRef} defaultValue="set-dublu">
-                  <option value="set-standard">Set Standard</option>
-                  <option value="set-dublu">Set Dublu</option>
+                <select className="form-select" ref={packageRef} defaultValue="pro">
+                  <option value="basic">BASIC — 3 perii</option>
+                  <option value="pro">PRO — 4 perii</option>
+                  <option value="ultra">ULTRA — 5 perii</option>
                 </select>
               </div>
               <div className="form-group">
