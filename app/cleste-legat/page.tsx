@@ -665,6 +665,7 @@ export default function ClesteLegat() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          product: "cleste-legat",
           name: orderName,
           phone: orderPhone,
           address: orderAddress,

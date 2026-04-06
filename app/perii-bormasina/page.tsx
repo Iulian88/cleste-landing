@@ -393,6 +393,7 @@ export default function PeriiBormasina() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          product: "perii-bormasina",
           name: orderName,
           phone: orderPhone,
           address: orderAddress,
