@@ -17,6 +17,9 @@ const IMG = {
   img5: "/images/perii-bormasina/67b87abbbf6ef_5_49c04d057b_67b87abcba034_3492d06b.avif",
   dimensions: "/images/perii-bormasina/67b87abbbf6ef_6_69b1865be8_67b87abcd7c1b_9a7668c7.webp",
   img7: "/images/perii-bormasina/67b87abbbf6ef_7_48140a6697_67b87abd00afb_f5bfce71.webp",
+  b3perii: "/images/perii-bormasina/3-perii.webp",
+  b4perii: "/images/perii-bormasina/67b87abbbf6ef_1_7acce788f9_67b87abc1f6b6_926fcbdb.avif",
+  b5perii: "/images/perii-bormasina/perii-5buc.webp",
 };
 
 const GALLERY_IMAGES = [IMG.main, IMG.img0, IMG.img1, IMG.img2, IMG.img5, IMG.img7];
@@ -275,7 +278,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
 .shipping-nudge{font-size:12px;margin-top:6px;padding:5px 8px;border-radius:6px}
 .shipping-nudge.pending{color:#b05a00;background:#fff8ee}
 .shipping-nudge.unlocked{color:var(--green);background:var(--green-pale);font-weight:600}
-.bundle-img{width:100%;height:140px;object-fit:cover;border-radius:10px;margin-bottom:1rem;background:#f5f5f0}
+.bundle-img{width:100%;height:160px;object-fit:contain;border-radius:10px;margin-bottom:1rem;background:#f5f5f0;padding:8px}
 .bundle-tier{font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
 .bundle-card.ultra{border:2px solid var(--gold);box-shadow:0 6px 36px rgba(200,149,42,0.15);background:#fffdf5}
 .bundle-card.ultra .popular-badge{background:linear-gradient(90deg,var(--gold),#d4a030)}
@@ -698,7 +701,7 @@ export default function PeriiBormasina() {
         <div className="bundles">
           {/* BASIC */}
           <div className="bundle-card">
-            <img className="bundle-img" src={IMG.img0} alt="BASIC — 3 perii" />
+            <img className="bundle-img" src={IMG.b3perii} alt="BASIC — 3 perii" />
             <div className="bundle-tier">pentru test</div>
             <div className="bundle-name">{BUNDLES[0].name}</div>
             <div className="bundle-price"><sup>lei</sup>{BUNDLES[0].price}</div>
@@ -717,7 +720,7 @@ export default function PeriiBormasina() {
           {/* PRO — FEATURED */}
           <div className="bundle-card featured">
             <div className="popular-badge">🔥 CEL MAI VÂNDUT</div>
-            <img className="bundle-img" src={IMG.main} alt="PRO — 4 perii" />
+            <img className="bundle-img" src={IMG.b4perii} alt="PRO — 4 perii" />
             <div className="bundle-name">{BUNDLES[1].name}</div>
             <div className="bundle-price"><sup>lei</sup>{BUNDLES[1].price}</div>
             <div className="bundle-old">lei {BUNDLES[1].oldPrice}</div>
@@ -737,7 +740,7 @@ export default function PeriiBormasina() {
           {/* ULTRA */}
           <div className="bundle-card ultra">
             <div className="popular-badge">🔝 KIT COMPLET</div>
-            <img className="bundle-img" src={IMG.dimensions} alt="ULTRA — 5 perii" />
+            <img className="bundle-img" src={IMG.b5perii} alt="ULTRA — 5 perii" />
             <div className="bundle-name">{BUNDLES[2].name}</div>
             <div className="bundle-price"><sup>lei</sup>{BUNDLES[2].price}</div>
             <div className="bundle-old">lei {BUNDLES[2].oldPrice}</div>
