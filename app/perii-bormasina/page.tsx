@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 const SHIPPING_COST = 25;
-const FREE_SHIPPING_THRESHOLD = 200;
+const FREE_SHIPPING_THRESHOLD = 129;
 
 // Image names for gallery
 const IMG = {
@@ -713,8 +713,10 @@ export default function PeriiBormasina() {
               <li>Tijă extensie 6,35 mm</li>
               <li>Compatibil orice bormașină</li>
               <li>Ideal pentru o cameră</li>
+              <li>Transport: 25 lei</li>
             </ul>
             <button type="button" className="add-btn secondary" onClick={() => addBundle(0)}>Încearcă acum</button>
+            <div className="urgency-text">📦 Transport: 25 lei</div>
           </div>
 
           {/* PRO — FEATURED */}
@@ -755,22 +757,22 @@ export default function PeriiBormasina() {
               <li>Garanție extinsă 18 luni</li>
             </ul>
             <button type="button" className="add-btn primary" onClick={() => addBundle(2)}>Comandă kit complet</button>
-            <div className="urgency-text" style={{ color: "var(--green)" }}>🔝 Cel mai complet set disponibil</div>
+            <div className="urgency-text" style={{ color: "var(--green)" }}>� Transport gratuit + livrare prioritară</div>
           </div>
         </div>
 
         <div className="transport-bar">
           <div>
-            <div className="t-label">Transport standard (3-5 zile)</div>
-            <div className="t-value">{SHIPPING_COST} lei</div>
+            <div className="t-label">BASIC</div>
+            <div className="t-value">Transport: 25 lei</div>
           </div>
           <div>
-            <div className="t-label">Transport gratuit peste {FREE_SHIPPING_THRESHOLD} lei</div>
-            <div className="t-value">Gratuit</div>
+            <div className="t-label">PRO</div>
+            <div className="t-value">Transport gratuit</div>
           </div>
           <div>
-            <div className="t-label">Plată la livrare</div>
-            <div className="t-value">disponibilă</div>
+            <div className="t-label">ULTRA</div>
+            <div className="t-value">Gratuit + prioritar</div>
           </div>
         </div>
       </div>
@@ -930,8 +932,8 @@ export default function PeriiBormasina() {
               <div className="cart-total-row"><span>Transport</span><span>{transport === 0 ? "Gratuit" : transport + " lei"}</span></div>
               {cart.length > 0 && (
                 subtotal >= FREE_SHIPPING_THRESHOLD
-                  ? <div className="shipping-nudge unlocked">Ai economisit {SHIPPING_COST} lei — transport gratuit</div>
-                  : <div className="shipping-nudge pending">Mai adaugă {FREE_SHIPPING_THRESHOLD - subtotal} lei pentru transport gratuit</div>
+                  ? <div className="shipping-nudge unlocked">✓ Transport gratuit aplicat</div>
+                  : <div className="shipping-nudge pending">Adaugă PRO sau ULTRA pentru transport gratuit</div>
               )}
               <div className="cart-total-row main"><span>Total</span><span>{total} lei</span></div>
               <button
