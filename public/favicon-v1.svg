@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Dark green background, rounded square -->
+  <rect width="512" height="512" rx="80" fill="#1B5E20"/>
+
+  <!-- Tapener body (main horizontal block) -->
+  <rect x="76" y="196" width="286" height="104" rx="18" fill="white"/>
+
+  <!-- Handle (rounded rect below left side of body) -->
+  <rect x="88" y="274" width="64" height="148" rx="32" fill="white"/>
+
+  <!-- Tape roll indicator inside body (donut) -->
+  <circle cx="215" cy="248" r="38" fill="#1B5E20"/>
+  <circle cx="215" cy="248" r="20" fill="white"/>
+
+  <!-- Binding ring at nose — the tapener's most distinctive feature -->
+  <circle cx="390" cy="248" r="56" fill="none" stroke="white" stroke-width="34"/>
+</svg>

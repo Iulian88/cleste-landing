@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Background dark green rounded square -->
+  <rect width="512" height="512" rx="96" fill="#1B5E20"/>
+
+  <!-- Main stem (vertical, thick) -->
+  <rect x="228" y="48" width="56" height="416" rx="28" fill="white"/>
+
+  <!-- Left leaf — branches up-left from upper stem -->
+  <ellipse cx="154" cy="188" rx="92" ry="30" fill="white" transform="rotate(-38 154 188)"/>
+
+  <!-- Right leaf — branches up-right from upper stem -->
+  <ellipse cx="358" cy="188" rx="92" ry="30" fill="white" transform="rotate(38 358 188)"/>
+
+  <!-- Tape ring around stem (the binding) -->
+  <circle cx="256" cy="342" r="92" fill="none" stroke="white" stroke-width="50"/>
+</svg>
