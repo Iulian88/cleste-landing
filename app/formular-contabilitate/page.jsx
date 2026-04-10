@@ -18,6 +18,9 @@ export default function FormularContabilitate() {
   const [pret, setPret] = useState(100)
   const [q5b, setQ5b] = useState('')
   const [mesaj, setMesaj] = useState('')
+  const [email, setEmail] = useState('')
+  const [telefon, setTelefon] = useState('')
+  const [emailError, setEmailError] = useState('')
 
   const pct = Math.round(((current - 1) / total) * 100)
 
@@ -26,12 +29,22 @@ export default function FormularContabilitate() {
   }
 
   function goNext() {
-    if (current < total) {
-      setCurrent(c => c + 1)
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-    } else {
+    if (current === total) {
+      const emailTrimmed = email.trim()
+      if (!emailTrimmed) {
+        setEmailError('Emailul este obligatoriu.')
+        return
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailTrimmed)) {
+        setEmailError('Introdu un email valid.')
+        return
+      }
+      setEmailError('')
       handleSubmit()
+      return
     }
+    setCurrent(c => c + 1)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   function goPrev() {
@@ -54,6 +67,8 @@ export default function FormularContabilitate() {
           pret_lunar: pret,
           experienta_ai: q5b || '-',
           mesaj_liber: mesaj || '-',
+          email: email.trim(),
+          telefon: telefon.trim() || '-',
           sursa: 'esellroyal',
         }),
       })
@@ -250,6 +265,34 @@ export default function FormularContabilitate() {
               value={mesaj}
               onChange={e => setMesaj(e.target.value)}
             />
+            <hr className="divider" />
+            <div className="question" style={{ fontSize: 18, marginBottom: 4 }}>Date de contact</div>
+            <div className="hint">Email pentru a-ti trimite primii acces. Telefonul e optional.</div>
+            <div className="contact-fields">
+              <div className="field-wrap">
+                <label className="field-label">Email <span className="required">*</span></label>
+                <input
+                  className="fc-input"
+                  type="email"
+                  placeholder="email@firma.ro"
+                  value={email}
+                  onChange={e => { setEmail(e.target.value); setEmailError('') }}
+                  autoComplete="email"
+                />
+                {emailError && <span className="field-error">{emailError}</span>}
+              </div>
+              <div className="field-wrap">
+                <label className="field-label">Telefon <span style={{ color: 'var(--muted)', fontWeight: 400 }}>(optional)</span></label>
+                <input
+                  className="fc-input"
+                  type="tel"
+                  placeholder="07xxxxxxxx"
+                  value={telefon}
+                  onChange={e => setTelefon(e.target.value)}
+                  autoComplete="tel"
+                />
+              </div>
+            </div>
             {error && <div className="error-msg">{error}</div>}
             <div className="nav">
               <button className="btn btn-ghost" onClick={goPrev}>&larr; Inapoi</button>
