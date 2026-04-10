@@ -4,11 +4,11 @@ import { getSupabase } from '../../../lib/supabase'
 export async function POST(request) {
   try {
     const body = await request.json()
-    const { firme, software, timp_pierdut, dureri, pret_lunar, experienta_ai, mesaj_liber } = body
+    const { firma, software, timp_pierdut, dureri, pret_lunar, experienta_ai, mesaj_liber, sursa } = body
     const supabase = getSupabase()
     const { error } = await supabase
       .from('discovery_responses')
-      .insert([{ firme, software, timp_pierdut, dureri, pret_lunar, experienta_ai, mesaj_liber }])
+      .insert([{ firma, software, timp_pierdut, dureri, pret_lunar, experienta_ai, mesaj_liber, sursa }])
     if (error) return NextResponse.json({ error: error.message }, { status: 500 })
     return NextResponse.json({ success: true }, { status: 200 })
   } catch {

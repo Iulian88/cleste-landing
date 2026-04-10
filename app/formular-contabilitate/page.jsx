@@ -47,13 +47,14 @@ export default function FormularContabilitate() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          firme: q1 || '-',
+          firma: q1 || '-',
           software: q2.join(', ') || '-',
           timp_pierdut: q3 || '-',
           dureri: q4.join(', ') || '-',
           pret_lunar: pret,
           experienta_ai: q5b || '-',
           mesaj_liber: mesaj || '-',
+          sursa: 'esellroyal',
         }),
       })
       const data = await res.json()
